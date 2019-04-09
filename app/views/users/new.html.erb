@@ -1,3 +1,81 @@
 <% provide(:title, 'Sign up') %>
 <h1>Sign up</h1>
-<p>This will be a signup page for new users.</p>
+
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+
+        <p>Per creare un nuovo account compila il seguente form.<br>Tutti i campi sono obbligatori.</p>
+
+        <%= form_for(@user, :url => {:action => "confirm"}) do |f| %>
+        <!--<%= render 'shared/error_messages' %>-->
+
+        <%= f.label :nome %>
+        <%= f.text_field :nome, class: "form-control", placeholder: 'nome' %>
+        <%= errors_for @user, :nome %><%if @user.errors.any?%><br><%end%>
+
+        <%= f.label :cognome %>
+        <%= f.text_field :cognome, class: 'form-control', placeholder: 'cognome' %>
+        <%= errors_for @user, :cognome %><%if @user.errors.any?%><br><%end%>
+
+        <%= f.label :codice_fiscale %>
+        <%= f.text_field :codice_fiscale, class: 'form-control', placeholder: 'codice_fiscale' %>
+        <%= errors_for @user, :codice_fiscale %><%if @user.errors.any?%><br><%end%>
+
+        <%= f.label :sesso %><br>
+        <table class='tableSex'>
+            <tr>  
+                <!--<td><%= f.radio_button :sesso, 'M', :checked => true%>-->
+                <td><%= f.radio_button :sesso, 'M'%>
+                <%= label :sesso_M, 'M' %></td>
+                <td><%= f.radio_button :sesso, 'F' %>
+                <%= label :sesso_f, 'F' %></td>
+            </tr>
+        </table>
+        <%= errors_for @user, :sesso %><%if @user.errors.any?%><br><%end%>
+
+        <%= f.label :data_nascita, "Data di nascita" %>
+        <%= f.date_field :data_nascita,class: 'form-control',:value => (f.object.data_nascita.strftime('%m/%d/%Y') if f.object.data_nascita) %>
+        <%= errors_for @user, :data_nascita %><%if @user.errors.any?%><br><%end%>
+
+        <%= f.label :nazione_nascita, "Nazione di nascita" %>
+        <%= f.select :nazione_nascita,CountryStateSelect.countries_collection,{prompt: '--Seleziona la nazione di nascita--'},{:class=> 'form-control'} %>
+        <%= errors_for @user, :nazione_nascita %><%if @user.errors.any?%><br><%end%>
+
+        <!--<%= f.label :regione, "Regione di nascita"%>
+        <%= f.select :regione,CountryStateSelect.collect_states(f.object.nazione_nascita),{prompt: '--Seleziona regione di nascita--'},{:class=> 'form-control'}%>
+        <%= errors_for @user, :regione %><%if @user.errors.any?%><br><%end%>
+
+        <%= f.label :luogo_nascita, "Città di nascita" %>
+        <%= f.select :luogo_nascita, CountryStateSelect.collect_cities(f.object.nazione_nascita, f.object.regione),{prompt: '--Seleziona la città di nascita--'},{:class=> 'form-control'}%>
+        <%= errors_for @user, :luogo_nascita %><%if @user.errors.any?%><br><%end%>-->
+
+        <%= f.label :luogo_nascita, "Città di nascita" %>
+        <%= f.text_field :luogo_nascita, class: 'form-control' %>
+
+
+        <%= f.label :nazione_residenza, "Nazione di residenza" %>
+        <%= f.text_field :nome, class: 'form-control' %>
+
+        <%= f.label :citta_residenza, "Città di residenza" %>
+        <%= f.text_field :nome, class: 'form-control' %>
+
+        <%= f.label :indirizzo %>
+        <%= f.text_field :indirizzo, class: 'form-control' %>
+
+        <%= f.label :email %>
+        <%= f.text_field :email, class: 'form-control' %>
+
+        <%= f.label :numero_telefono, "Numero di telefono" %>
+        <%= f.text_field :numero_telefono, class: 'form-control' %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+
+        <%= f.label :password_confirmation, "Conferma password" %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+        <%= f.submit "Crea account", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+</div>

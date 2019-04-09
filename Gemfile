@@ -18,6 +18,7 @@ gem 'turbolinks',           '2.3.0'
 gem 'jquery-turbolinks'
 gem 'jbuilder',             '2.2.3'
 gem 'rails-html-sanitizer', '1.0.4'
+gem 'phone',                '1.2.3'
 gem 'sdoc',                 '0.4.0', group: :doc
 
 group :production do
