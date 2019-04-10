@@ -9,8 +9,8 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
-        <%= form_for(@user, :url => {:action => "confirm"}) do |f| %>
-        <!--<%= render 'shared/error_messages' %>-->
+        <%= form_for(@user) do |f| %>
+        
 
         <%= f.label :nome %>
         <%= f.text_field :nome, class: "form-control", placeholder: 'nome' %>
@@ -55,45 +55,65 @@
         <br>
 
         <%= f.label :nazione_nascita, "Nazione di nascita" %>
-        <%= f.select :nazione_nascita, CountryStateSelect.countries_collection,{prompt: '--Seleziona la nazione di nascita--'},{:class=> 'form-control'} %>
+        <%= f.text_field :nazione_nascita, class: "form-control", placeholder: 'nazione di nascita' %>
+        <div class="errore">
+            <%= errors_for @user, :nazione_nascita %><%if @user.errors.any?%><br><%end%>
+        </div>
+
+        <!--<%= f.select :nazione_nascita, CountryStateSelect.countries_collection,{prompt: '--Seleziona la nazione di nascita--'},{:class=> 'form-control'} %>
         <div class="errore">
         <%= errors_for @user, :nazione_nascita %><%if @user.errors.any?%><br><%end%>
-        </div>
+        </div>-->
         <br>
 
-        <%= f.label :regione, "Regione di nascita"%>
+        <!--<%= f.label :regione, "Regione di nascita"%>
         <%= f.select :regione, CountryStateSelect.collect_states(f.object.nazione_nascita),{prompt: '--Seleziona la regione di nascita--'},{:class=> 'form-control'} %>
         <div class="errore">
         <%= errors_for @user, :regione %><%if @user.errors.any?%><br><%end%>
-        </div>
+        </div>-->
         <br>
 
-        <%= f.label :luogo_nascita, "Città di nascita" %>
-        <%= f.select :luogo_nascita, CountryStateSelect.collect_cities(f.object.nazione_nascita, f.object.regione),{prompt: '--Seleziona la città di nascita--'},{:class=> 'form-control'}%>
+        <%= f.label :luogo_nascita, "Luogo di nascita" %>
+        <%= f.text_field :luogo_nascita, class: "form-control", placeholder: 'luogo di nascita' %>
+        <div class="errore">
+            <%= errors_for @user, :luogo_nascita %><%if @user.errors.any?%><br><%end%>
+        </div>
+
+        <!--<%= f.select :luogo_nascita, CountryStateSelect.collect_cities(f.object.nazione_nascita, f.object.regione),{prompt: '--Seleziona la città di nascita--'},{:class=> 'form-control'}%>
         <div class="errore">
         <%= errors_for @user, :luogo_nascita %><%if @user.errors.any?%><br><%end%>
-        </div>
+        </div>-->
         <br>
 
         <%= f.label :nazione_residenza, "Nazione di residenza" %>
-        <%= f.select :nazione_residenza, CountryStateSelect.countries_collection,{prompt: '--Seleziona la nazione di residenza--'},{:class=> 'form-control'} %>
+        <%= f.text_field :nazione_residenza, class: "form-control", placeholder: 'nazione di residenza' %>
+        <div class="errore">
+            <%= errors_for @user, :nazione_residenza %><%if @user.errors.any?%><br><%end%>
+        </div>
+
+        <!--<%= f.select :nazione_residenza, CountryStateSelect.countries_collection,{prompt: '--Seleziona la nazione di residenza--'},{:class=> 'form-control'} %>
         <div class="errore">
         <%= errors_for @user, :nazione_residenza %><%if @user.errors.any?%><br><%end%>
-        </div>
+        </div>-->
         <br>
 
-        <%= f.label :regione_residenza, "Regione di residenza" %>
+        <!--<%= f.label :regione_residenza, "Regione di residenza" %>
         <%= f.select :regione_residenza, CountryStateSelect.collect_states(f.object.nazione_residenza),{prompt: '--Seleziona la regione di residenza--'},{:class=> 'form-control'} %>
         <div class="errore">
         <%= errors_for @user, :regione_residenza %><%if @user.errors.any?%><br><%end%>
-        </div>
+        </div>-->
         <br>
 
         <%= f.label :citta_residenza, "Città di residenza" %>
-        <%= f.select :citta_residenza, CountryStateSelect.collect_cities(f.object.nazione_residenza, f.object.regione_residenza),{prompt: '--Seleziona la città di residenza--'},{:class=> 'form-control'} %>
+        <%= f.text_field :citta_residenza, class: "form-control", placeholder: 'città di residenza' %>
+        <div class="errore">
+            <%= errors_for @user, :citta_residenza %><%if @user.errors.any?%><br><%end%>
+        </div>
+
+        <!--<%= f.select :citta_residenza, CountryStateSelect.collect_cities(f.object.nazione_residenza, f.object.regione_residenza),{prompt: '--Seleziona la città di residenza--'},{:class=> 'form-control'} %>
         <div class="errore">
         <%= errors_for @user, :citta_residenza %><%if @user.errors.any?%><br><%end%>
-        </div>
+        </div>-->
         <br>
 
         <%= f.label :indirizzo %>

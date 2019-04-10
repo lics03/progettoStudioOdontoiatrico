@@ -1,20 +1,26 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user.nome) %>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
       <h1>
-        <!-- <%= gravatar_for @user %> -->
         
-        <%= image_tag("img_M") if @user.sesso == M %>
-        <%= image_tag("img_F") if @user.sesso == F %>
-        
-        <%= @user.nome %>, <%= @user.cognome %>, <%= @user.codice_fiscale %>, <%= @user.sesso %>, 
-        <%= @user.data_nascita %>, <%= @user.nazione_nascita %>, <%= @user.luogo_nascita %>, 
-        <%= @user.nazione_residenza %>, <%= @user.citta_residenza %>, <%= @user.indirizzo %>, 
-        <%= @user.email %>, <%= @user.numero_telefono %>
+        <%= image_tag("img_"+@user.sesso, {:style => "width:100px; border-radius: 50%;"}) %>
+        <br>
+        <br>
+
+        <%= @user.nome %><br>
+        <%= @user.cognome %><br>
+        <%= @user.codice_fiscale %><br>
+        <%= @user.sesso %><br>
+        <%= @user.data_nascita %><br>
+        <%= @user.nazione_nascita %><br>
+        <%= @user.luogo_nascita %><br>
+        <%= @user.nazione_residenza %><br>
+        <%= @user.citta_residenza %><br>
+        <%= @user.indirizzo %><br>
+        <%= @user.email %><br>
+        <%= @user.numero_telefono %><br>
       </h1>
     </section>
   </aside>
 </div>
-
-

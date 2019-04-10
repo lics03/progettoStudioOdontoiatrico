@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
     validates :sesso,  presence: true
     validates :data_nascita,  presence: true
     validates :nazione_nascita,  presence: true
-    validates :regione, presence: true
+    #validates :regione, presence: true
     validates :luogo_nascita,  presence: true, length: { maximum:60 }
     validates :nazione_residenza,  presence: true
-    validates :regione_residenza, presence: true
+    #validates :regione_residenza, presence: true
     validates :citta_residenza,  presence: true, length: { maximum:60 }
     validates :indirizzo,  presence: true, length: { maximum:60 }
     validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX },
