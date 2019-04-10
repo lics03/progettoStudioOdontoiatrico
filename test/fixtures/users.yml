@@ -1,29 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  nome: MyString
-#  cognome: MyString
-#  codice_fiscale: MyString
-#  sesso: MyString
-#  data_nascita: 2019-04-08
-#  nazione_nascita: MyString
-#  luogo_nascita: MyString
-#  nazione_residenza: MyString
-#  citta_residenza: MyString
-#  indirizzo: MyString
-#  email: MyString
-#  numero_telefono: MyString
-
-#two:
-#  nome: MyString
-#  cognome: MyString
-#  codice_fiscale: MyString
-#  sesso: MyString
-#  data_nascita: 2019-04-08
-#  nazione_nascita: MyString
-#  luogo_nascita: MyString
-#  nazione_residenza: MyString
-#  citta_residenza: MyString
-#  indirizzo: MyString
-#  email: MyString
-#  numero_telefono: MyString
+jessica:
+  nome: Jessica
+  cognome: Brandi
+  codice_fiscale: BRNJSC94P68H501D
+  sesso: F
+  data_nascita: 2019-04-28
+  nazione_nascita: Italy
+  luogo_nascita: Roma
+  nazione_residenza: Italy
+  citta_residenza: Roma
+  indirizzo: Via Roma 3
+  email: jessica@gmail.com
+  numero_telefono: 3333333333
+  regione: Latium
+  regione_residenza: Latium

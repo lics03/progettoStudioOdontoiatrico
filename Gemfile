@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                '4.2.2'
+gem 'rails'
 gem 'ransack'
 gem 'arel', '6.0.4'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
@@ -19,6 +19,7 @@ gem 'jquery-turbolinks'
 gem 'jbuilder',             '2.2.3'
 gem 'rails-html-sanitizer', '1.0.4'
 gem 'sdoc',                 '0.4.0', group: :doc
+gem 'chosen-rails'
 
 group :production do
   gem 'pg',             '0.17.1'

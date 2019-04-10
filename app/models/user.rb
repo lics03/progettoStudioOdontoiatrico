@@ -29,6 +29,12 @@ class User < ActiveRecord::Base
                     format: { with: VALID_PHONE_REGEX }
 
 
+    # Returns the hash digest of the given string.
+    def User.digest(string)
+        cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                      BCrypt::Engine.cost
+        BCrypt::Password.create(string, cost: cost)
+    end
 
     #validates :terms_of_service, acceptance: { message: 'devi accettare termini e condizioni' }
 
