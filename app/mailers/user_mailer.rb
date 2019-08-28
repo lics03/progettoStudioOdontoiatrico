@@ -1,7 +1,8 @@
 class UserMailer < ActionMailer::Base
   
-  default from: "noreply@example.com"
-
+  default from: "progettoarchitetture@gmail.com"
+  #layout 'mailer'
+  
   def account_activation(user)
     @user = user
     mail to: user.email, subject: "Account activation"

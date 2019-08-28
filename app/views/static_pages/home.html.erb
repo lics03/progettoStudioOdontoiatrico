@@ -1,11 +1,19 @@
 <div class="center jumbotron">
-  <h1>Studio Odontoiatrico</h1>
+    <h1>Studio Odontoiatrico</h1>
 
-  <h2>
-    Questa è la home page.
-  </h2>
+    <h2>
+        Questa è la home page.
+    </h2>
+    <% if !user_signed_in? %>
+        <%= link_to "Log in", new_user_session_path, class: "btn btn-lg btn-primary"%>
+        <h5> O </h5>
+        <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-lg btn-primary", style: "margin:10px" %>
+        <br>
+        <%= link_to "Sign In with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-lg btn-primary"%>
+    <% else %>
+        <p> Benvenuto <b> <%= current_user.nome %> </b> </p>
+    <% end %>
 
-  <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
 </div>
 
 <!-- <%= link_to image_tag("rails.png", alt: "Rails logo"), 'http://rubyonrails.org/' %> -->

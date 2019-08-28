@@ -1,0 +1,88 @@
+<% provide(:title, 'Sign up') %>
+
+<div class="jumbotron2 text-center">
+<h1>Sign up</h1>
+
+<p>Per creare un nuovo account compila il seguente form.<br>Tutti i campi sono obbligatori.</p>
+
+<hr>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+
+          <%= f.label :nome %>
+          <%= f.text_field :nome, class: "form-control", placeholder: 'nome' %>
+          <br>
+
+          <%= f.label :cognome %>
+          <%= f.text_field :cognome, class: 'form-control', placeholder: 'cognome' %>
+          <br>
+
+          <%= f.label :codice_fiscale %>
+          <%= f.text_field :codice_fiscale, class: 'form-control', placeholder: 'codice fiscale' %>
+          <br>
+
+          <%= f.label :sesso %><br>
+          <table class='tableSex' align="center">
+              <tr>
+                  <td><%= f.radio_button :sesso, 'M'%>
+                  <%= label :sesso_M, 'M' %></td>
+                  <td><%= f.radio_button :sesso, 'F' %>
+                  <%= label :sesso_f, 'F' %></td>
+              </tr>
+          </table>
+          <br>
+
+          <%= f.label :data_nascita, "Data di nascita" %>
+          <%= f.date_field :data_nascita, class: 'form-control', :value => (f.object.data_nascita.strftime('%d/%m/%Y') if f.object.data_nascita), placeholder: 'dd/mm/yyyy' %>
+          <br>
+
+          <%= f.label :nazione_nascita, "Nazione di nascita" %>
+          <%= f.text_field :nazione_nascita, class: "form-control", placeholder: 'nazione di nascita' %>
+          <br>
+
+
+          <%= f.label :luogo_nascita, "Luogo di nascita" %>
+          <%= f.text_field :luogo_nascita, class: "form-control", placeholder: 'luogo di nascita' %>
+          <br>
+
+          <%= f.label :nazione_residenza, "Nazione di residenza" %>
+          <%= f.text_field :nazione_residenza, class: "form-control", placeholder: 'nazione di residenza' %>
+          <br>
+
+          <%= f.label :citta_residenza, "Città di residenza" %>
+          <%= f.text_field :citta_residenza, class: "form-control", placeholder: 'città di residenza' %>
+          <br>
+
+          <%= f.label :indirizzo %>
+          <%= f.text_field :indirizzo, class: 'form-control', placeholder: 'via/piazza roma 15' %>
+          <br>
+
+          <%= f.label :email %>
+          <%= f.text_field :email, class: 'form-control', placeholder: 'example@gmail.com'%>
+          <br>
+
+          <%= f.label :numero_telefono, "Numero di telefono" %>
+          <%= f.text_field :numero_telefono, class: 'form-control', placeholder: '3333333333'%>
+          <br>
+
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+          <br>
+
+          <%= f.label :password_confirmation, "Conferma password" %>
+
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+
+          <br>
+          <%= f.submit "Crea account", class: "btn btn-primary" %>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+  </div>
+</div>
+

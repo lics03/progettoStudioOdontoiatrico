@@ -1,4 +1,4 @@
-<h1>Sample App</h1>
+<h1>Studio Odontoiatrico</h1>
 
 <p>Ciao <%= @user.nome %>,</p>
 
@@ -6,5 +6,5 @@
     Benvenuto! Clicca sul link qui sotto per attivare il tuo account:
 </p>
 
-<%= link_to "Attiva", edit_account_activation_url(@user.activation_token,
+<%= link_to "Attiva", account_activation_url(@user.activation_token,
                                                     email: @user.email) %>

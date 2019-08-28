@@ -1,30 +1,34 @@
 Rails.application.routes.draw do
 
-  get 'password_resets/new'
+  resources :visits
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }
 
-  get 'password_resets/edit'
+  devise_scope :user do 
+    match 'users/finish_auth', to:'users/registrations#add_data', as: 'finish_auth', via: [:get, :put]
+    get 'users/callback' => 'users/registrations#callback'
+    get 'users/calendars' => 'users/registrations#calendars'
+    get 'events', to: 'users/registrations#events', as: 'events'
+    post 'events', to: 'users/registrations#new_event', as: 'new_event'
+    post 'delete_event', to: 'users/registrations#delete_event', as: 'delete_event'
+    put 'user/:id' => 'users/registrations#update'
+    get 'user/:id', to: 'users/registrations#show', as: 'user'
+    get 'list_user', to: 'users/registrations#index', as: 'list_user'
+    get 'user/:id/edit', to: 'users/registrations#edit', as: 'edit_user'
 
-  get 'sessions/new'
+  end
 
-  get 'users/new'
-
-  root             'static_pages#home'
+  root to:         'static_pages#home'
   get 'help'    => 'static_pages#help'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
 
-  #get   'users/confirm'    => 'users#confirm'
-  #post  'users/confirm'    => 'users#confirm'
+  get 'visits'  => 'static_pages#visits'
 
-  get 'signup'  => 'users#new'
+
   
-  get    'login'   => 'sessions#new'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
 
-  resources :users
-  resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
+  get '/account_activations/:id/edit', to: 'account_activations#activate', as: 'account_activation'
+  #resources :password_resets,     only: [:new, :create, :edit, :update]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

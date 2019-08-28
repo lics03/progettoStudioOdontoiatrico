@@ -1,0 +1,120 @@
+<% provide(:title, "Edit user") %>
+<h1>Completa i dati del tuo profilo</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= form_for(@user, url:'/users/finish_auth?email=' + params[:email], html: { method: :put }) do |f| %>
+      <%= render 'shared/error_messages' %>
+
+      <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email" %>
+        <div class="errore">
+        <%= errors_for @user, :email %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+      <%= f.label :nome %>
+        <%= f.text_field :nome, class: "form-control", placeholder: 'nome' %>
+        <div class="errore">
+            <%= errors_for @user, :nome %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :cognome %>
+        <%= f.text_field :cognome, class: 'form-control', placeholder: 'cognome' %>
+        <div class="errore">
+        <%= errors_for @user, :cognome %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :codice_fiscale %>
+        <%= f.text_field :codice_fiscale, class: 'form-control', placeholder: 'codice fiscale' %>
+        <div class="errore">
+        <%= errors_for @user, :codice_fiscale %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :sesso %><br>
+        <table class='tableSex' align="center">
+            <tr>
+                <td><%= f.radio_button :sesso, 'M'%>
+                <%= label :sesso_M, 'M' %></td>
+                <td><%= f.radio_button :sesso, 'F' %>
+                <%= label :sesso_f, 'F' %></td>
+            </tr>
+        </table>
+        <div class="errore">
+        <%= errors_for @user, :sesso %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :data_nascita, "Data di nascita" %>
+        <%= f.date_field :data_nascita, class: 'form-control', :value => (f.object.data_nascita.strftime('%d/%m/%Y') if f.object.data_nascita), placeholder: 'dd/mm/yyyy' %>
+        <div class="errore">
+        <%= errors_for @user, :data_nascita %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :nazione_nascita, "Nazione di nascita" %>
+        <%= f.text_field :nazione_nascita, class: "form-control", placeholder: 'nazione di nascita' %>
+        <div class="errore">
+            <%= errors_for @user, :nazione_nascita %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+
+        <%= f.label :luogo_nascita, "Luogo di nascita" %>
+        <%= f.text_field :luogo_nascita, class: "form-control", placeholder: 'luogo di nascita' %>
+        <div class="errore">
+            <%= errors_for @user, :luogo_nascita %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :nazione_residenza, "Nazione di residenza" %>
+        <%= f.text_field :nazione_residenza, class: "form-control", placeholder: 'nazione di residenza' %>
+        <div class="errore">
+            <%= errors_for @user, :nazione_residenza %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :citta_residenza, "Città di residenza" %>
+        <%= f.text_field :citta_residenza, class: "form-control", placeholder: 'città di residenza' %>
+        <div class="errore">
+            <%= errors_for @user, :citta_residenza %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :indirizzo %>
+        <%= f.text_field :indirizzo, class: 'form-control', placeholder: 'via/piazza roma 15' %>
+        <div class="errore">
+        <%= errors_for @user, :indirizzo %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <%= f.label :numero_telefono, "Numero di telefono" %>
+        <%= f.text_field :numero_telefono, class: 'form-control', placeholder: '3333333333'%>
+        <div class="errore">
+        <%= errors_for @user, :numero_telefono %><%if @user.errors.any?%><br><%end%>
+        </div>
+        <br>
+
+        <div class="field">
+        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <br />
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <%= f.submit "Salva", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>

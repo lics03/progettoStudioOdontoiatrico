@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tipo: MyString
+  inizio: 
+  fine: 
+  paziente: 1
+  descrizione: MyText
+
+two:
+  tipo: MyString
+  inizio: 
+  fine: 
+  paziente: 1
+  descrizione: MyText
