@@ -79,50 +79,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def calendar_options
-    cal = Google::Apis::CalendarV3::CalendarService.new
-    cal.authorization = google_secret.to_authorization
-    cal.authorization.refresh!
-    cal
-  end
-
-  def calendars
-    @calendar = calendar_options.list_calendar_lists.items[0]
-    render 'appointment'
-  end
-
-
-  def events
-    @event_list = calendar_options.list_events(CALENDAR_ID)
-    render 'events'
-  end
-
-  def new_event
-    if params[:events][:summary] == "Controllo" || params[:events][:summary] == "Visita" || params[:events][:summary] == "Operazione"
-      event = Google::Apis::CalendarV3::Event.new({
-        start: Google::Apis::CalendarV3::EventDateTime.new(
-          date_time: DateTime.parse(params[:events][:start_date] + " " + params[:events][:start_time]).change(offset:'+0200'),
-        ),
-        end: Google::Apis::CalendarV3::EventDateTime.new(
-          date_time: DateTime.parse(params[:events][:end_date] + " " + params[:events][:end_time]).change(offset:'+0200'),
-        ),
-        summary: params[:events][:summary]
-      })
-      calendar_options.insert_event(CALENDAR_ID, event)
-
-      redirect_to events_url
-    else
-      flash[:error] = "Sorry this is not a valid option"
-      redirect_to events_url
-    end
-  end
-
-  def delete_event
-    event_id = params[:events][:events]
-    calendar_options.delete_event(CALENDAR_ID, event_id)
-    flash[:success] = "The event with id " + event_id.to_s + " has been cancelled"
-    redirect_to events_url
-  end
+  
 
   # def confirm
   #   @user=User.new(user_params)
@@ -182,21 +139,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # }
     # end
 
-    def google_secret
-      # puts current_user.access_token
-      # puts current_user.refresh_token #For the user Lupo Lucio, that is the one that we are interested in
-      Google::APIClient::ClientSecrets.new(
-        { "web" =>
-          {
-            "access_token" => "ya29.GltgB83Y-mQjjdIj1Is8davcoRYaRg4mkAlBp5-sj8NHiuWZTEtIQOPZFNRzRk-zcu8jqcc_pRXXcoSJekHk6upts8t0lRV1GjDabp0nNLbQhfYlbqmZEFiJUNfV",
-            "refresh_token" => "1/NivxsXTyZmkl3zDKTzkPBh_uAiLuLu9Lv8l1-XvBk9U",
-            "client_id" => Rails.application.secrets.google_client_id,
-            "client_secret" => Rails.application.secrets.google_client_secret,
-          }
-        }
-      )
-    end
-
 
 
       # def destroy
@@ -211,8 +153,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #       client.update!(session[:authorization])
   #       service = Google::Apis::CalendarV3::CalendarService.new
   #       service.authorization = client
-  #       service.authorization.access_token = "ya29.GltfB5bGsdxRpSwclB2DK2SXhgK0Y8mkT0OWfBKjdX2SckQV6UmXD403KemiqowDdIQVk4Y6LEOOskJAY3lsLTBI0QkpqzpEcojPhtV-1Kq6Vp2p9T0FDtaqQtw7"
-  #       service.authorization.refresh_token = "1/ds8u3PIHAvu-LO853_O5tuZOaZ9vykf6aBuz0jJjHXk"
+  #       service.authorization.access_token = "ya29.Glt1B7LwAzpYh4AE0G-8shM1yR1Y4Vmx5GHOlxFISLHi99_cPzfuP7i3dtXcWIppX-yQslMndcdFAUEopkvqdIpSDQf-RCO4mGlPBh_bCc6_tJ2pPG0IZbWwDKwA"
+  #       service.authorization.refresh_token = "1/SyLNtRuLtWB8JB7BHTXdr7lTBtt5cf9jP5s2R6FPSTY"
   #       @calendar_list = service.list_calendar_lists
   #     else
   #       cal = Google::Apis::CalendarV3::CalendarService.new
@@ -239,8 +181,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   #     service = Google::Apis::CalendarV3::CalendarService.new
   #     service.authorization = client
-  #     service.authorization.access_token = "ya29.GltfB5bGsdxRpSwclB2DK2SXhgK0Y8mkT0OWfBKjdX2SckQV6UmXD403KemiqowDdIQVk4Y6LEOOskJAY3lsLTBI0QkpqzpEcojPhtV-1Kq6Vp2p9T0FDtaqQtw7"
-  #     service.authorization.refresh_token = "1/ds8u3PIHAvu-LO853_O5tuZOaZ9vykf6aBuz0jJjHXk"
+  #     service.authorization.access_token = "ya29.Glt1B7LwAzpYh4AE0G-8shM1yR1Y4Vmx5GHOlxFISLHi99_cPzfuP7i3dtXcWIppX-yQslMndcdFAUEopkvqdIpSDQf-RCO4mGlPBh_bCc6_tJ2pPG0IZbWwDKwA"
+  #     service.authorization.refresh_token = "1/SyLNtRuLtWB8JB7BHTXdr7lTBtt5cf9jP5s2R6FPSTY"
   #     @event_list = service.list_events(CALENDAR_ID)
   #   else
   #     cal = Google::Apis::CalendarV3::CalendarService.new
@@ -257,8 +199,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   #   # service = Google::Apis::CalendarV3::CalendarService.new
   #   # service.authorization = client
-  #   # service.authorization.access_token = "ya29.GltfB5bGsdxRpSwclB2DK2SXhgK0Y8mkT0OWfBKjdX2SckQV6UmXD403KemiqowDdIQVk4Y6LEOOskJAY3lsLTBI0QkpqzpEcojPhtV-1Kq6Vp2p9T0FDtaqQtw7"
-  #   # service.authorization.refresh_token = "1/ds8u3PIHAvu-LO853_O5tuZOaZ9vykf6aBuz0jJjHXk"
+  #   # service.authorization.access_token = "ya29.Glt1B7LwAzpYh4AE0G-8shM1yR1Y4Vmx5GHOlxFISLHi99_cPzfuP7i3dtXcWIppX-yQslMndcdFAUEopkvqdIpSDQf-RCO4mGlPBh_bCc6_tJ2pPG0IZbWwDKwA"
+  #   # service.authorization.refresh_token = "1/SyLNtRuLtWB8JB7BHTXdr7lTBtt5cf9jP5s2R6FPSTY"
 
   #   today = Date.today
   #   event = Google::Apis::CalendarV3::Event.new({

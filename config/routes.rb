@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :visits
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions", :passwords => "users/passwords" }
 
   devise_scope :user do 
     match 'users/finish_auth', to:'users/registrations#add_data', as: 'finish_auth', via: [:get, :put]
     get 'users/callback' => 'users/registrations#callback'
-    get 'users/calendars' => 'users/registrations#calendars'
-    get 'events', to: 'users/registrations#events', as: 'events'
-    post 'events', to: 'users/registrations#new_event', as: 'new_event'
-    post 'delete_event', to: 'users/registrations#delete_event', as: 'delete_event'
+    get 'visits/calendars' => 'visits#calendars'
+    get 'visits', to: 'visits#new', as: 'visits'
+    post 'visits', to: 'visits#create', as: 'new_visit'
+    post 'delete_visit', to: 'visits#delete_visit', as: 'delete_visit'
     put 'user/:id' => 'users/registrations#update'
     get 'user/:id', to: 'users/registrations#show', as: 'user'
     get 'list_user', to: 'users/registrations#index', as: 'list_user'
@@ -21,9 +20,6 @@ Rails.application.routes.draw do
   get 'help'    => 'static_pages#help'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
-
-  get 'visits'  => 'static_pages#visits'
-
 
   
 

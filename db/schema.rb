@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190808185818) do
+ActiveRecord::Schema.define(version: 20190828151854) do
 
   create_table "users", force: :cascade do |t|
     t.string   "nome"
@@ -64,5 +64,15 @@ ActiveRecord::Schema.define(version: 20190808185818) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "visits", force: :cascade do |t|
+    t.string   "tipo"
+    t.datetime "inizio"
+    t.datetime "fine"
+    t.integer  "paziente"
+    t.text     "descrizione"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
 end

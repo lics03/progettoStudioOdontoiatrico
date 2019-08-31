@@ -37,7 +37,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           redirect_to finish_auth_url(:email => @user.email)  
         else
           flash[:success] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
-          redirect_to events_url
+          redirect_to visits_url
         end
       else
         session['devise.google_data'] = request.env['omniauth.auth'].except(:extra) # Removing extra as it can overflow some session stores
