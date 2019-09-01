@@ -26,6 +26,9 @@ class VisitsController < ApplicationController
   end
 
   def create
+    # puts "**************************"
+    # puts params[:visits]
+    # puts "**************************"
     if params[:visits][:summary] == "Controllo" || params[:visits][:summary] == "Visita" || params[:visits][:summary] == "Operazione"
       visit = Google::Apis::CalendarV3::Event.new({
         start: Google::Apis::CalendarV3::EventDateTime.new(
@@ -34,7 +37,9 @@ class VisitsController < ApplicationController
         end: Google::Apis::CalendarV3::EventDateTime.new(
           date_time: DateTime.parse(params[:visits][:end_date] + " " + params[:visits][:end_time]).change(offset:'+0200'),
         ),
-        summary: params[:visits][:summary]
+        summary: current_user.is_doctor? ? params[:visits][:patient] + " - " + params[:visits][:summary] : 
+                    current_user.nome + " " + current_user.cognome + " - " + params[:visits][:summary]
+                    
       })
       calendar_options.insert_event(CALENDAR_ID, visit)
 
