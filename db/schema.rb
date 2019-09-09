@@ -67,8 +67,10 @@ ActiveRecord::Schema.define(version: 20190828151854) do
 
   create_table "visits", force: :cascade do |t|
     t.string   "tipo"
-    t.datetime "inizio"
-    t.datetime "fine"
+    t.time     "ora_inizio"
+    t.time     "ora_fine"
+    t.date     "data_inizio"
+    t.date     "data_fine"
     t.integer  "paziente"
     t.text     "descrizione"
     t.datetime "created_at",  null: false

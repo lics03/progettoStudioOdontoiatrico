@@ -15,7 +15,9 @@ class User < ActiveRecord::Base
     VALID_PHONE_REGEX =/\A\d{10}\z/
 
 
-    #has_many :visite ,dependent: :destroy
+    has_many :visits, dependent: :destroy
+
+    
     # validates :nome,  presence: true , length: { maximum:20 , minimum: 2 }
     # validates :cognome,  presence: true, length: { maximum:20 , minimum: 2 }
     # validates :codice_fiscale, presence: true, length: {is: 16}, 

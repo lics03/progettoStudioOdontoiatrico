@@ -29,21 +29,27 @@ class VisitsController < ApplicationController
     # puts "**************************"
     # puts params[:visits]
     # puts "**************************"
-    if params[:visits][:summary] == "Controllo" || params[:visits][:summary] == "Visita" || params[:visits][:summary] == "Operazione"
+    if params[:visits][:tipo] == "Controllo" || params[:visits][:tipo] == "Visita" || params[:visits][:tipo] == "Operazione"
       visit = Google::Apis::CalendarV3::Event.new({
         start: Google::Apis::CalendarV3::EventDateTime.new(
-          date_time: DateTime.parse(params[:visits][:start_date] + " " + params[:visits][:start_time]).change(offset:'+0200'),
+          date_time: DateTime.parse(params[:visits][:data_inizio] + " " + params[:visits][:ora_inizio]).change(offset:'+0200'),
         ),
         end: Google::Apis::CalendarV3::EventDateTime.new(
-          date_time: DateTime.parse(params[:visits][:end_date] + " " + params[:visits][:end_time]).change(offset:'+0200'),
+          date_time: DateTime.parse(params[:visits][:data_fine] + " " + params[:visits][:ora_fine]).change(offset:'+0200'),
         ),
-        summary: current_user.is_doctor? ? params[:visits][:patient] + " - " + params[:visits][:summary] : 
-                    current_user.nome + " " + current_user.cognome + " - " + params[:visits][:summary]
+        summary: current_user.is_doctor? ? params[:visits][:paziente] + " - " + params[:visits][:tipo] : 
+                    current_user.nome + " " + current_user.cognome + " - " + params[:visits][:tipo],
                     
       })
-      calendar_options.insert_event(CALENDAR_ID, visit)
 
-      redirect_to visits_url
+      @visit = Visit.new(visit_params)
+      if @visit.save
+        calendar_options.insert_event(CALENDAR_ID, visit)
+        redirect_to visits_url
+      else
+        flash[:error] = "Errore salvataggio visita nel database"
+        redirect_to visits_url
+      end
     else
       flash[:error] = "Sorry this is not a valid option"
       redirect_to visits_url
@@ -67,7 +73,11 @@ class VisitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:tipo, :inizio, :fine, :paziente, :descrizione)
+      if current_user.is_doctor
+        params.require(:visits).permit(:tipo, :ora_inizio, :ora_fine, :data_inizio, :data_fine, :paziente)
+      else
+        params.require(:visits).permit(:tipo, :ora_inizio, :ora_fine, :data_inizio, :data_fine)
+      end
     end
 
 
