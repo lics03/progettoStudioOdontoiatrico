@@ -6,8 +6,10 @@ Rails.application.routes.draw do
     match 'users/finish_auth', to:'users/registrations#add_data', as: 'finish_auth', via: [:get, :put]
     get 'users/callback' => 'users/registrations#callback'
     get 'visits/calendars' => 'visits#calendars'
-    get 'visits', to: 'visits#new', as: 'visits'
-    post 'visits', to: 'visits#create', as: 'new_visit'
+    get 'visits/add', to: 'visits#new', as: 'visits'
+    post 'visits/add', to: 'visits#create', as: 'new_visit'
+    get 'visits/calendar', to: 'visits#calendar', as: 'show_calendar'
+    get 'visits/show_visits', to: 'visits#show', as: 'show_visits'
     post 'delete_visit', to: 'visits#delete_visit', as: 'delete_visit'
     put 'user/:id' => 'users/registrations#update'
     get 'user/:id', to: 'users/registrations#show', as: 'user'

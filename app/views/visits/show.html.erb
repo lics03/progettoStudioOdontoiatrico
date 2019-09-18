@@ -1,29 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Tipo:</strong>
-  <%= @visit.tipo %>
-</p>
-
-<p>
-  <strong>Inizio:</strong>
-  <%= @visit.inizio %>
-</p>
-
-<p>
-  <strong>Fine:</strong>
-  <%= @visit.fine %>
-</p>
-
-<p>
-  <strong>Paziente:</strong>
-  <%= @visit.paziente %>
-</p>
-
-<p>
-  <strong>Descrizione:</strong>
-  <%= @visit.descrizione %>
-</p>
-
-<%= link_to 'Edit', edit_visit_path(@visit) %> |
-<%= link_to 'Back', visits_path %>
+<% @visits_list.each do |visit| %>
+      <tr>
+        <strong>Tipo:</strong>
+        <td><%= visit.tipo %></td>
+        <strong>Inizio:</strong>
+        <td><%= visit.ora_inizio %></td>
+        <strong>Fine:</strong>
+        <td><%= visit.ora_fine %></td>
+        <strong>Paziente:</strong>
+        <td><%= visit.paziente %></td>
+        <strong>Descrizione:</strong>
+        <td><%= visit.descrizione %></td>
+  </tr>
+  <br>
+<% end %>

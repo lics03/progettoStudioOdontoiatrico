@@ -1,54 +1,17 @@
 <% provide(:title, 'Visite') %>
 
 <h1>Visite</h1>
-<!-- <ul>
-  <% @visit_list.items.each do |visit| %>
-    <li><%= visit.summary %> (<%= visit.id %>)</li>
-  <% end %>
-</ul> -->
 
 <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;bgcolor=%23ffffff&amp;ctz=Europe%2FRome&amp;src=cHJvZ2V0dG9hcmNoaXRldHR1cmVAZ21haWwuY29t&amp;src=aXQuaXRhbGlhbiNob2xpZGF5QGdyb3VwLnYuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;color=%23039BE5&amp;color=%230B8043&amp;title=Dottor%20Mario%20Rossi" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
 <br><br><br>
 
-<%= form_for("visits", url: new_visit_url) do |f| %>
-    <%= f.label :data_inizio %>
-    <%= f.date_field :data_inizio, class: "form-control", placeholder: 'start' %>
-    <br>
-    <%= f.label :ora_inizio %>
-    <%= f.time_field :ora_inizio, class: "form-control", placeholder: 'start' %>
-    <br>
-    <%= f.label :data_fine %>
-    <%= f.date_field :data_fine, class: "form-control", placeholder: 'end' %>
-    <br>
-    <%= f.label :ora_fine %>
-    <%= f.time_field :ora_fine, class: "form-control", placeholder: 'start' %>
-    <br>
-    <%= f.label :tipo_visita %>
-    <%= f.text_field :tipo, class: "form-control", placeholder: 'Controllo' %>
-    <br>
-    <% if current_user.is_doctor %>
-        <%= f.label :paziente %>
-        <%= f.text_field :paziente, class: "form-control", placeholder: 'Paziente' %>
-    <% end %>
-    <br>
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        <%= button_to "Prenota Visita", visits_url, method: :get, class: 'btn btn-primary' %></p>
 
-    <%= submit_tag 'Aggiungi Visita', class: "btn btn-primary" %>
-<% end %>
-
-<% if current_user.is_doctor %>
-    <br><br><br>
-    <h1> Cancella visita </h1>
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <% if !@visit_list.items.empty? %>
-                <%= form_for("visits", url: delete_visit_url, html: { method: :post }) do |f| %>
-                    <%= f.select "visits", options_from_collection_for_select(@visit_list.items, "id", "summary") %>
-                    <%= submit_tag 'Cancella visita', class: "btn btn-primary" %>
-                <% end %>
-            <% else %>
-                <center><h5> Non ci sono visite da cancellare </h5></center>
-            <% end %>
-        </div>
+        <% if current_user.is_doctor %>
+            <%= button_to "Cancella Visita", visits_url, method: :get, class: 'btn btn-primary' %></p>
+        <% end %>
     </div>
-<% end %>
+</div>

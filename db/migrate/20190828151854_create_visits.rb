@@ -1,6 +1,7 @@
 class CreateVisits < ActiveRecord::Migration
   def change
     create_table :visits do |t|
+      t.belongs_to :user, index: true
       t.string :tipo
       t.time :ora_inizio
       t.time :ora_fine

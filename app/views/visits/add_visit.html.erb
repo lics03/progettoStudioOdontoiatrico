@@ -1,0 +1,52 @@
+<% provide(:title, 'Prenota Visita') %>
+
+<h1>Prenota Visita</h1>
+
+<!-- <ul>
+  <% @visit_list.items.each do |visit| %>
+    <li><%= visit.summary %> (<%= visit.id %>)</li>
+  <% end %>
+</ul> -->
+
+<%= form_for("visits", url: new_visit_url) do |f| %>
+    <%= f.label :data_inizio %>
+    <%= f.date_field :data_inizio, class: "form-control", placeholder: 'Data inizio' %>
+    <br>
+    <%= f.label :ora_inizio %>
+    <%= f.time_field :ora_inizio, class: "form-control", placeholder: 'Ora inizio' %>
+    <br>
+    <%= f.label :data_fine %>
+    <%= f.date_field :data_fine, class: "form-control", placeholder: 'Data fine' %>
+    <br>
+    <%= f.label :ora_fine %>
+    <%= f.time_field :ora_fine, class: "form-control", placeholder: 'Ora fine' %>
+    <br>
+    <%= f.label :tipo_visita %>
+    <%= f.text_field :tipo, class: "form-control", placeholder: 'Controllo' %>
+    <br>
+    <% if current_user.is_doctor %>
+        <%= f.label :paziente %>
+        <%= f.text_field :paziente, class: "form-control", placeholder: 'Paziente' %>
+    <% end %>
+    <br>
+
+    <%= submit_tag 'Aggiungi Visita', class: "btn btn-primary" %>
+<% end %>
+
+
+<% if current_user.is_doctor %>
+    <br><br><br>
+    <h1> Cancella visita </h1>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <% if !@visit_list.items.empty? %>
+                <%= form_for("visits", url: delete_visit_url, html: { method: :post }) do |f| %>
+                    <%= f.select "visits", options_from_collection_for_select(@visit_list.items, "id", "summary") %>
+                    <%= submit_tag 'Cancella visita', class: "btn btn-primary" %>
+                <% end %>
+            <% else %>
+                <center><h5> Non ci sono visite da cancellare </h5></center>
+            <% end %>
+        </div>
+    </div>
+<% end %>
